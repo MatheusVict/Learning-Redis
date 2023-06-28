@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { PrismaService } from './config/prism.config';
 import { UserRepository } from './repositories/user.repository';
 import { PrismaUserRepository } from './repositories/prisma/prisma-user-repository';
+import { RedisUserRepository } from './repositories/cahce/redis-user-repository';
+import { RedisService } from './config/redis';
 
 @Module({
   imports: [],
@@ -11,9 +13,10 @@ import { PrismaUserRepository } from './repositories/prisma/prisma-user-reposito
   providers: [
     AppService,
     PrismaService,
+    RedisService,
     {
       provide: UserRepository,
-      useClass: PrismaUserRepository,
+      useClass: RedisUserRepository,
     },
   ],
 })
